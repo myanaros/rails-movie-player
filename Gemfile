@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# for websocket comms
+gem "websocket-rails"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
