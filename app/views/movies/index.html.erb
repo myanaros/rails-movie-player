@@ -1,0 +1,16 @@
+<h1>Movies List</h1>
+
+<script>
+  var dispatcher = new WebSocketRails('localhost:3000/websocket');
+
+  dispatcher.on_open = function(data) {
+    console.log('Connection has been established: ', data);
+    // You can trigger new server events inside this callback if you wish.
+  }
+
+  dispatcher.trigger('whoami',"finding myself");
+
+  dispatcher.bind('youare', function(data) {
+    console.log('You are ' + data);
+  });
+</script>
