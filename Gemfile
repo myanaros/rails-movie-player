@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 # for websocket comms
 gem "websocket-rails"
+# 0.10.1 doesn't initialize websocket driver
+gem 'faye-websocket', '0.10.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'

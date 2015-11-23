@@ -6,6 +6,8 @@ WebsocketRails::EventMap.describe do
   # Uncomment and edit the next line to handle the client connected event:
   subscribe :client_connected, :to => MediaProtocolController, :with_method => :client_connected
 
+  subscribe :whoami, 'MediaProtocol#whoami'
+
   #
   # Here is an example of mapping namespaced events:
   #   namespace :product do

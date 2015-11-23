@@ -4,5 +4,12 @@ class MediaProtocolController < WebsocketRails::BaseController
   end
 
   def client_connected
+    puts "client connected"
+    trigger_success
+  end
+
+  def whoami
+    puts "whoami: "+message
+    send_message 'youare', 'a user'
   end
 end
