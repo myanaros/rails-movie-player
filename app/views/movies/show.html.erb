@@ -1,18 +1,14 @@
-<h1>Movies List</h1>
+<div align="center">
+<video controls>
 
-<%= link_to "Upload Movie", new_movie_path %>
-<br/>
-<br/>
+  <source src="<%= @movie.media_file.url %>" type="<%= @movie.media_file.content_type %>" />
 
-<table>
-  <% @movies.each do |movie| %>
-    <tr>
-      <td><%= movie.media_file_file_name %></td>
-      <td><%= link_to "Watch Movie", movie_path(movie) %></td>
-      <td><%= link_to "Delete Movie", movie_path(movie), method: :delete %></td>
-    </tr>
-  <% end %>
-</table>
+  <em>Sorry, your browser doesn't support HTML5 video.</em>
+
+</video>
+
+<p><%= link_to "Back to Movie List", movies_path %></p>
+</div>
 
 <script>
   var dispatcher = new WebSocketRails('localhost:3000/websocket');
