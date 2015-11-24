@@ -1,5 +1,11 @@
 <h1>Movies List</h1>
 
+<%= link_to "Upload Movie", new_movie_path %>
+
+<% @movies.each do |movie| %>
+  <p><%= movie.media_file_file_name %></p>
+<% end %>
+
 <script>
   var dispatcher = new WebSocketRails('localhost:3000/websocket');
 
