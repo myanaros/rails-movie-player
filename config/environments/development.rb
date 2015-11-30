@@ -1,5 +1,5 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+ config.web_console.whiny_requests = false
 
   Paperclip.options[:command_path] = '/usr/bin/'
 

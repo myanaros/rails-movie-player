@@ -1,5 +1,6 @@
+<br/>
 <div align="center">
-<video controls>
+<video controls id="movie">
 
   <source src="<%= @movie.media_file.url %>" type="<%= @movie.media_file.content_type %>" />
 
@@ -11,7 +12,7 @@
 </div>
 
 <script>
-  var dispatcher = new WebSocketRails('localhost:3000/websocket');
+  var dispatcher = new WebSocketRails(location.host+'/websocket');
 
   dispatcher.on_open = function(data) {
     console.log('Connection has been established: ', data);
@@ -22,5 +23,25 @@
 
   dispatcher.bind('youare', function(data) {
     console.log('You are ' + data);
+  });
+
+  var control_channel = dispatcher.subscribe('<%= @movie.media_file_file_name %>');
+  var video = document.getElementById("movie");
+
+  control_channel.bind('play', function(data) {
+    video.play();
+  });
+  control_channel.bind('pause', function(data) {
+    video.pause();
+  });
+  control_channel.bind('stop', function(data) {
+    video.pause();
+    video.currentTime = 0;
+  });
+  control_channel.bind('fastforward', function(data) {
+    video.currentTime += 4;
+  });
+  control_channel.bind('rewind', function(data) {
+    video.currentTime -= 4;
   });
 </script>
