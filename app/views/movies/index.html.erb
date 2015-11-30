@@ -4,15 +4,13 @@
 <br/>
 <br/>
 
-<table>
-  <% @movies.each do |movie| %>
-    <tr>
-      <td><%= movie.media_file_file_name %></td>
-      <td><%= link_to "Watch Movie", movie_path(movie) %></td>
-      <td><%= link_to "Delete Movie", movie_path(movie), method: :delete %></td>
-    </tr>
-  <% end %>
-</table>
+<% @movies.each do |movie| %>
+  <div class="row">
+    <div class="col-xs-6"><%= movie.media_file_file_name %></div>
+    <div class="col-xs-3"><%= link_to "Watch Movie", movie_path(movie) %></div>
+    <div class="col-xs-3"><%= link_to "Delete Movie", movie_path(movie), method: :delete %></div>
+  </div>
+<% end %>
 
 <script>
   var dispatcher = new WebSocketRails('localhost:3000/websocket');
