@@ -1,16 +1,37 @@
 <h1>Movies List</h1>
 
-<%= link_to "Upload Movie", new_movie_path %>
 <br/>
+<div class="row">
+<%= form_tag(movies_path, :method => "get", class: "form-inline", id: "search-form") do %>
+  <div class="col-xs-8">
+    <%= text_field_tag :search, params[:search], class: "form-control", style:"width:100%;", placeholder: "Search Movies" %>
+  </div>
+  <div class="col-xs-4">
+    <button type="submit" class="btn btn-primary">Search for Movie</button>
+  </div>
+  <% end %>
+</div>
+
+<br/>
+<p>
+  <%= link_to "Upload Movie", new_movie_path %>
+</p>
+<p>
+  <% unless @showing_all %>
+    <%= link_to "Show all Movies", movies_path %>
+  <% end %>
+</p>
 <br/>
 
-<% @movies.each do |movie| %>
-  <div class="row">
-    <div class="col-xs-6"><%= movie.media_file_file_name %></div>
-    <div class="col-xs-3"><%= link_to "Watch Movie", movie_path(movie) %></div>
-    <div class="col-xs-3"><%= link_to "Delete Movie", movie_path(movie), method: :delete %></div>
-  </div>
-<% end %>
+<div class="well">
+  <% @movies.each do |movie| %>
+    <div class="row">
+      <div class="col-xs-6"><%= movie.media_file_file_name %></div>
+      <div class="col-xs-3"><%= link_to "Watch Movie", movie_path(movie) %></div>
+      <div class="col-xs-3"><%= link_to "Delete Movie", movie_path(movie), method: :delete %></div>
+    </div>
+  <% end %>
+</div>
 
 <script>
   var dispatcher = new WebSocketRails('localhost:3000/websocket');
