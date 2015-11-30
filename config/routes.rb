@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   root 'movies#index'
 
+  get 'remote/control' => 'remote#control'
   resources :movies
 
   # Example of regular route:

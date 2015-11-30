@@ -1,0 +1,85 @@
+<div class="row" style="text-align:center;">
+  <div class="col-xs-3">
+    <button type="button" class="btn btn-default" aria-label="Left Align"
+      onclick="rewind()">
+      <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="col-xs-3">
+    <button type="button" class="btn btn-default" aria-label="Left Align"
+      onclick="play()">
+      <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="col-xs-3">
+    <button type="button" class="btn btn-default" aria-label="Left Align"
+      onclick="pause()">
+      <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="col-xs-3">
+    <button type="button" class="btn btn-default" aria-label="Left Align"
+      onclick="fastforward()">
+      <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="col-xs-12">
+    <button type="button" class="btn btn-default" aria-label="Left Align"
+      onclick="stop()">
+      <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="col-xs-12">
+    <h1> Controlling <%= @control_channel_name %></h1>
+  </div>
+  <div class="col-xs-12">
+    <p><%= link_to "Go back", movies_path %></p>
+  </div>
+</div>
+
+<script>
+  var dispatcher = new WebSocketRails(location.host+'/websocket');
+
+  dispatcher.on_open = function(data) {
+    console.log('Connection has been established: ', data);
+    // You can trigger new server events inside this callback if you wish.
+  }
+
+  dispatcher.trigger('whoami',"finding myself");
+
+  dispatcher.bind('youare', function(data) {
+    console.log('You are ' + data);
+  });
+
+  var control_channel = dispatcher.subscribe('<%= @control_channel_name %>');
+
+  function play(){
+    control_channel.trigger('play');
+  }
+  function pause(){
+    control_channel.trigger('pause');
+  }
+  function stop(){
+    control_channel.trigger('stop');
+  }
+  function fastforward(){
+    control_channel.trigger('fastforward');
+  }
+  function rewind(){
+    control_channel.trigger('rewind');
+  }
+</script>
+
+<style>
+  html, body{height:100%;}
+
+  .container{
+    height:100%;
+    display:table;
+    width: 100%;
+    padding: 0;
+  }
+
+  .row {height: 100%; display:table-cell; vertical-align: middle;}
+</style>
+
